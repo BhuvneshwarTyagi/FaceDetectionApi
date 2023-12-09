@@ -5,7 +5,7 @@ from fastapi.middleware.cors import CORSMiddleware
 import tensorflow as tf
 from PIL import Image
 import numpy as np
-import pickle
+import pickle5 as pickle
 
 app = FastAPI()
 
