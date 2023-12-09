@@ -1,4 +1,4 @@
 tensorflow
 numpy
 pickle5
-opencv-python = 4.8.0
+opencv-python
