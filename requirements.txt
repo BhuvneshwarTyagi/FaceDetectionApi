@@ -1,4 +1,3 @@
---upgrade pip
 tensorflow
 numpy
 io
