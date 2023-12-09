@@ -22,7 +22,7 @@ app.add_middleware(
 model = tf.keras.models.load_model('face_recognition_model.h5')
 
 @app.post("/predict")
-async def predict(file: UploadFile = File(...)):
+async def predict(file: UploadFile = File('4face15.jpg')):
     contents = await file.read()
     image = Image.open(io.BytesIO(contents)).convert("RGB")
     image = image.resize((64, 64))  # Resize as needed
