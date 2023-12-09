@@ -1,4 +1,4 @@
 tensorflow
 numpy
-pickle5
+pickle==12.1
 opencv-python
