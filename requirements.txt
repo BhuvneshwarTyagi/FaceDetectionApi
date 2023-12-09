@@ -1,4 +1,4 @@
 tensorflow
 numpy
-pickle
-cv2
+pickle = 12.1
+opencv-python = 4.8.0
