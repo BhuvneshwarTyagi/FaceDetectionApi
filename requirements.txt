@@ -1,1 +1,6 @@
-tensorflow=2.14.0
+tensorflow
+numpy
+io
+pillow
+pickle
+cv2
