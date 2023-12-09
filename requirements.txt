@@ -1,6 +1,4 @@
 tensorflow
 numpy
-io
-pillow
 pickle
 cv2
