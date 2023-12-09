@@ -1,4 +1,7 @@
-tensorflow
-numpy
-pickle==12.1
-opencv-python
+fastapi==0.104.1
+numpy==1.26.2
+Pillow==10.1.0
+Pillow==10.1.0
+Requests==2.31.0
+tensorflow==2.15.0
+tensorflow_intel==2.15.0
