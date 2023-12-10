@@ -28,7 +28,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 def update_github_file(repo_owner, repo_name, file_path, content, commit_message, access_token):
-    print("update_github_file......................fgasd.gsdg.sd.ga.sdg.asd.g.asdg)
+    print("update_github_file......................fgasd.gsdg.sd.ga.sdg.asd.g.asdg")
     url = f"https://api.github.com/repos/{repo_owner}/{repo_name}/contents/{file_path}"
     
     headers = {
