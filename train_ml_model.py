@@ -51,7 +51,7 @@ async def predict():
                     f.close()
 
     # Detect face for Testing Images
-    directoryPath="testing images"
+    directoryPath="Test"
     face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
     for folder in os.listdir(directoryPath):
         for image in os.listdir(folder):
@@ -73,8 +73,8 @@ async def predict():
 
     # # ----------------------- --------- start to train model -------------------------------------------------  
 
-    TrainingImagePath='Final Training Images'
-    TestingImagePath='Final Testing Images'
+    TrainingImagePath='Train'
+    TestingImagePath='Test'
 
     train_datagen = ImageDataGenerator(
         shear_range=0.1,
