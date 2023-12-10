@@ -30,45 +30,45 @@ app.add_middleware(
 
 @app.post("/train model")
 async def predict():
-    # # Detect face for traing images
-    # directoryPath="Final Training Images"
-    # face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
-    # for folder in os.listdir(directoryPath):
-    #     for image in os.listdir(folder):
-    #         with open(os.path.join(folder, image)) as f:
-    #             image=f.read()
-    #             gray_frame = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-    #             faces = face_cascade.detectMultiScale(gray_frame, scaleFactor=1.3, minNeighbors=5)
-    #             for (x, y, w, h) in faces:
-    #                 # Draw a rectangle around the face
-    #                 cv2.rectangle(image, (x, y), (x+w, y+h), (255, 0, 0), 2)
-    #                 # Save the face region as an image
-    #                 face_roi = image[y:y+h, x:x+w]
-    #                 # New path where we want to save
-    #                 file_path = os.path.join(f'{directoryPath}/{folder}', f'{os.path.join(folder, image)}')
-    #                 print("File path is :",file_path)
-    #                 cv2.imwrite(file_path, face_roi)
-    #                 f.close()
+    # Detect face for traing images
+    directoryPath="Train"
+    face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
+    for folder in os.listdir(directoryPath):
+        for image in os.listdir(folder):
+            with open(os.path.join(folder, image)) as f:
+                image=f.read()
+                gray_frame = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+                faces = face_cascade.detectMultiScale(gray_frame, scaleFactor=1.3, minNeighbors=5)
+                for (x, y, w, h) in faces:
+                    # Draw a rectangle around the face
+                    cv2.rectangle(image, (x, y), (x+w, y+h), (255, 0, 0), 2)
+                    # Save the face region as an image
+                    face_roi = image[y:y+h, x:x+w]
+                    # New path where we want to save
+                    file_path = os.path.join(f'{directoryPath}/{folder}', f'{os.path.join(folder, image)}')
+                    print("File path is :",file_path)
+                    cv2.imwrite(file_path, face_roi)
+                    f.close()
 
-    # # Detect face for Testing Images
-    # directoryPath="testing images"
-    # face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
-    # for folder in os.listdir(directoryPath):
-    #     for image in os.listdir(folder):
-    #         with open(os.path.join(folder, image)) as f:
-    #             image=f.read()
-    #             gray_frame = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-    #             faces = face_cascade.detectMultiScale(gray_frame, scaleFactor=1.3, minNeighbors=5)
-    #             for (x, y, w, h) in faces:
-    #                 # Draw a rectangle around the face
-    #                 cv2.rectangle(image, (x, y), (x+w, y+h), (255, 0, 0), 2)
-    #                 # Save the face region as an image
-    #                 face_roi = image[y:y+h, x:x+w]
-    #                 # New path where we want to save
-    #                 file_path = os.path.join(f'{directoryPath}/{folder}', f'{os.path.join(folder, image)}')
-    #                 print("File path is :",file_path)
-    #                 cv2.imwrite(file_path, face_roi)
-    #                 f.close()
+    # Detect face for Testing Images
+    directoryPath="testing images"
+    face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
+    for folder in os.listdir(directoryPath):
+        for image in os.listdir(folder):
+            with open(os.path.join(folder, image)) as f:
+                image=f.read()
+                gray_frame = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+                faces = face_cascade.detectMultiScale(gray_frame, scaleFactor=1.3, minNeighbors=5)
+                for (x, y, w, h) in faces:
+                    # Draw a rectangle around the face
+                    cv2.rectangle(image, (x, y), (x+w, y+h), (255, 0, 0), 2)
+                    # Save the face region as an image
+                    face_roi = image[y:y+h, x:x+w]
+                    # New path where we want to save
+                    file_path = os.path.join(f'{directoryPath}/{folder}', f'{os.path.join(folder, image)}')
+                    print("File path is :",file_path)
+                    cv2.imwrite(file_path, face_roi)
+                    f.close()
 
 
     # # ----------------------- --------- start to train model -------------------------------------------------  
