@@ -49,100 +49,102 @@ def update_github_file(repo_owner, repo_name, file_path, content, commit_message
         
 @app.post("/train model")
 async def predict():
-    Detect face for traing images
-    directoryPath="Train"
-    face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
+    
     repo_owner = "BhuvneshwarTyagi"
     repo_name = "FaceDetectionApi"
     access_token = "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"  
-    for folder in os.listdir(directoryPath):
-        for image in os.listdir(folder):
-            with open(os.path.join(folder, image)) as f:
-                image=f.read()
-                gray_frame = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-                faces = face_cascade.detectMultiScale(gray_frame, scaleFactor=1.3, minNeighbors=5)
-                for (x, y, w, h) in faces:
-                    # Draw a rectangle around the face
-                    cv2.rectangle(image, (x, y), (x+w, y+h), (255, 0, 0), 2)
-                    # Save the face region as an image
-                    face_roi = image[y:y+h, x:x+w]
-                    # New path where we want to save
-                    file_path = os.path.join(f'{directoryPath}/{folder}', f'{os.path.join(folder, image)}')
-                    print("File path is :",file_path)
-                    cv2.imwrite(file_path, face_roi)
-                    f.close()
 
-    # Detect face for Testing Images
-    directoryPath="Test"
-    face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
-    for folder in os.listdir(directoryPath):
-        for image in os.listdir(folder):
-            with open(os.path.join(folder, image)) as f:
-                image=f.read()
-                gray_frame = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-                faces = face_cascade.detectMultiScale(gray_frame, scaleFactor=1.3, minNeighbors=5)
-                for (x, y, w, h) in faces:
-                    # Draw a rectangle around the face
-                    cv2.rectangle(image, (x, y), (x+w, y+h), (255, 0, 0), 2)
-                    # Save the face region as an image
-                    face_roi = image[y:y+h, x:x+w]
-                    # New path where we want to save
-                    file_path = os.path.join(f'{directoryPath}/{folder}', f'{os.path.join(folder, image)}')
-                    print("File path is :",file_path)
-                    cv2.imwrite(file_path, face_roi)
-                    f.close()
+    # Detect face for traing images
+    # directoryPath="Train"
+    # face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
+    # for folder in os.listdir(directoryPath):
+    #     for image in os.listdir(folder):
+    #         with open(os.path.join(folder, image)) as f:
+    #             image=f.read()
+    #             gray_frame = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    #             faces = face_cascade.detectMultiScale(gray_frame, scaleFactor=1.3, minNeighbors=5)
+    #             for (x, y, w, h) in faces:
+    #                 # Draw a rectangle around the face
+    #                 cv2.rectangle(image, (x, y), (x+w, y+h), (255, 0, 0), 2)
+    #                 # Save the face region as an image
+    #                 face_roi = image[y:y+h, x:x+w]
+    #                 # New path where we want to save
+    #                 file_path = os.path.join(f'{directoryPath}/{folder}', f'{os.path.join(folder, image)}')
+    #                 print("File path is :",file_path)
+    #                 cv2.imwrite(file_path, face_roi)
+    #                 f.close()
+
+    # # Detect face for Testing Images
+    # directoryPath="Test"
+    # face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
+    # for folder in os.listdir(directoryPath):
+    #     for image in os.listdir(folder):
+    #         with open(os.path.join(folder, image)) as f:
+    #             image=f.read()
+    #             gray_frame = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    #             faces = face_cascade.detectMultiScale(gray_frame, scaleFactor=1.3, minNeighbors=5)
+    #             for (x, y, w, h) in faces:
+    #                 # Draw a rectangle around the face
+    #                 cv2.rectangle(image, (x, y), (x+w, y+h), (255, 0, 0), 2)
+    #                 # Save the face region as an image
+    #                 face_roi = image[y:y+h, x:x+w]
+    #                 # New path where we want to save
+    #                 file_path = os.path.join(f'{directoryPath}/{folder}', f'{os.path.join(folder, image)}')
+    #                 print("File path is :",file_path)
+    #                 cv2.imwrite(file_path, face_roi)
+    #                 f.close()
 
 
-    # # ----------------------- --------- start to train model -------------------------------------------------  
+    # # # ----------------------- --------- start to train model -------------------------------------------------  
 
-    TrainingImagePath='Train'
-    TestingImagePath='Test'
+    # TrainingImagePath='Train'
+    # TestingImagePath='Test'
 
-    train_datagen = ImageDataGenerator(
-        shear_range=0.1,
-        zoom_range=0.1,
-        horizontal_flip=True)
+    # train_datagen = ImageDataGenerator(
+    #     shear_range=0.1,
+    #     zoom_range=0.1,
+    #     horizontal_flip=True)
     
-    test_datagen = ImageDataGenerator()
+    # test_datagen = ImageDataGenerator()
     
-    # Generating the Training Data
-    training_set = train_datagen.flow_from_directory(
-        TrainingImagePath,
-        target_size=(64, 64),
-        batch_size=32,
-        class_mode='categorical') 
+    # # Generating the Training Data
+    # training_set = train_datagen.flow_from_directory(
+    #     TrainingImagePath,
+    #     target_size=(64, 64),
+    #     batch_size=32,
+    #     class_mode='categorical') 
     
-    # Generating the Testing Data
-    test_set = test_datagen.flow_from_directory(
-        TestingImagePath,                               # Do change Here----------
-        target_size=(64, 64),
-        batch_size=32,
-        class_mode='categorical')
+    # # Generating the Testing Data
+    # test_set = test_datagen.flow_from_directory(
+    #     TestingImagePath,                               # Do change Here----------
+    #     target_size=(64, 64),
+    #     batch_size=32,
+    #     class_mode='categorical')
 
 
     
-    #------------------------------ Second Step to map face with face Id
+    # #------------------------------ Second Step to map face with face Id
 
-    # class_indices have the numeric tag for each face
-    TrainClasses=training_set.class_indices
+    # # class_indices have the numeric tag for each face
+    # TrainClasses=training_set.class_indices
  
-    # Storing the face and the numeric tag for future reference
-    ResultMap={}
-    for faceValue,faceName in zip(TrainClasses.values(),TrainClasses.keys()):
-        ResultMap[faceValue]=faceName
+    # # Storing the face and the numeric tag for future reference
+    # ResultMap={}
+    # for faceValue,faceName in zip(TrainClasses.values(),TrainClasses.keys()):
+    #     ResultMap[faceValue]=faceName
  
-    # Saving the face map for future reference  or lebel of the images
+    # # Saving the face map for future reference  or lebel of the images
 
-    with open("lable.txt", 'wb') as fileWriteStream:
-        pickle.dump(ResultMap, fileWriteStream)
+    # with open("lable.txt", 'wb') as fileWriteStream:
+    #     pickle.dump(ResultMap, fileWriteStream)
  
-    # The model will give answer as a numeric tag
-    # This mapping will help to get the corresponding face name for it
-    print("Mapping of Face and its ID",ResultMap)
+    # # The model will give answer as a numeric tag
+    # # This mapping will help to get the corresponding face name for it
+    # print("Mapping of Face and its ID",ResultMap)
  
-    # The number of neurons for the output layer is equal to the number of faces
-    OutputNeurons=len(ResultMap)
-    print('\n The Number of output neurons: ', OutputNeurons)
+    # # The number of neurons for the output layer is equal to the number of faces
+    # OutputNeurons=len(ResultMap)
+    # print('\n The Number of output neurons: ', OutputNeurons)
     #-------------------------- third step train the model ------------------------------------------
 
  
