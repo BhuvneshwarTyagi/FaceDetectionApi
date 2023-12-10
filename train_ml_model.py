@@ -27,36 +27,11 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-def update_github_file(repo_owner, repo_name, file_path, content, commit_message, access_token):
-    print("update_github_file......................fgasd.gsdg.sd.ga.sdg.asd.g.asdg")
-    url = f"https://api.github.com/repos/{repo_owner}/{repo_name}/contents/{file_path}"
-    
-    headers = {
-        "Authorization": f"Bearer {access_token}",
-        "Accept": "application/vnd.github.v3+json"
-    }
 
-    params = {
-        "message": commit_message,
-        "content": content
-    }
-
-    response = requests.put(url, headers=headers, json=params)
-
-    if response.status_code == 200:
-        return response.json()
-    else:
-        return None
-        
 @app.post("/train model")
 async def predict():
-    
-    repo_owner = "BhuvneshwarTyagi"
-    repo_name = "FaceDetectionApi"
-    access_token = "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"  
-
     # Detect face for traing images
-    # directoryPath="Train"
+    # directoryPath="Final Training Images"
     # face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
     # for folder in os.listdir(directoryPath):
     #     for image in os.listdir(folder):
@@ -76,8 +51,7 @@ async def predict():
     #                 f.close()
 
     # # Detect face for Testing Images
-    # directoryPath="Test"
-    # face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
+    # directoryPath="Final Testing Images"
     # for folder in os.listdir(directoryPath):
     #     for image in os.listdir(folder):
     #         with open(os.path.join(folder, image)) as f:
@@ -96,7 +70,7 @@ async def predict():
     #                 f.close()
 
 
-    # # # ----------------------- --------- start to train model -------------------------------------------------  
+    # # ----------------------- --------- start to train model -------------------------------------------------  
 
     TrainingImagePath='Train'
     TestingImagePath='Test'
@@ -187,37 +161,12 @@ async def predict():
                     training_set,
                     steps_per_epoch=5,
                     epochs=15,
-                    validation_data=test_set,
+                    #validation_data=test_set,
                     validation_steps=10)
 
     
     classifier.save('newmodel.h5')
-
-    # Update lable.txt on GitHub
-    with open("lable.txt", 'rb') as file:
-        content = file.read()
-        update_github_file(repo_owner, repo_name, "lable.txt", content, "Update lable.txt", access_token)
-
-    # Update newmodel.h5 on GitHub
-    with open("newmodel.h5", 'rb') as file:
-        content = file.read()
-        update_github_file(repo_owner, repo_name, "newmodel.h5", content, "Update newmodel.h5", access_token)
-
     scores = classifier.evaluate_generator(test_set, steps=10)
 
 
     return JSONResponse(content={"Acuraccy": f"{scores}"}) 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
