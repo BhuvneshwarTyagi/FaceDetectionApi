@@ -28,6 +28,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 def update_github_file(repo_owner, repo_name, file_path, content, commit_message, access_token):
+    print("update_github_file......................fgasd.gsdg.sd.ga.sdg.asd.g.asdg)
     url = f"https://api.github.com/repos/{repo_owner}/{repo_name}/contents/{file_path}"
     
     headers = {
@@ -97,54 +98,54 @@ async def predict():
 
     # # # ----------------------- --------- start to train model -------------------------------------------------  
 
-    # TrainingImagePath='Train'
-    # TestingImagePath='Test'
+    TrainingImagePath='Train'
+    TestingImagePath='Test'
 
-    # train_datagen = ImageDataGenerator(
-    #     shear_range=0.1,
-    #     zoom_range=0.1,
-    #     horizontal_flip=True)
+    train_datagen = ImageDataGenerator(
+        shear_range=0.1,
+        zoom_range=0.1,
+        horizontal_flip=True)
     
-    # test_datagen = ImageDataGenerator()
+    test_datagen = ImageDataGenerator()
     
-    # # Generating the Training Data
-    # training_set = train_datagen.flow_from_directory(
-    #     TrainingImagePath,
-    #     target_size=(64, 64),
-    #     batch_size=32,
-    #     class_mode='categorical') 
+    # Generating the Training Data
+    training_set = train_datagen.flow_from_directory(
+        TrainingImagePath,
+        target_size=(64, 64),
+        batch_size=32,
+        class_mode='categorical') 
     
-    # # Generating the Testing Data
-    # test_set = test_datagen.flow_from_directory(
-    #     TestingImagePath,                               # Do change Here----------
-    #     target_size=(64, 64),
-    #     batch_size=32,
-    #     class_mode='categorical')
+    # Generating the Testing Data
+    test_set = test_datagen.flow_from_directory(
+        TestingImagePath,                               # Do change Here----------
+        target_size=(64, 64),
+        batch_size=32,
+        class_mode='categorical')
 
 
     
-    # #------------------------------ Second Step to map face with face Id
+    #------------------------------ Second Step to map face with face Id
 
-    # # class_indices have the numeric tag for each face
-    # TrainClasses=training_set.class_indices
+    # class_indices have the numeric tag for each face
+    TrainClasses=training_set.class_indices
  
-    # # Storing the face and the numeric tag for future reference
-    # ResultMap={}
-    # for faceValue,faceName in zip(TrainClasses.values(),TrainClasses.keys()):
-    #     ResultMap[faceValue]=faceName
+    # Storing the face and the numeric tag for future reference
+    ResultMap={}
+    for faceValue,faceName in zip(TrainClasses.values(),TrainClasses.keys()):
+        ResultMap[faceValue]=faceName
  
-    # # Saving the face map for future reference  or lebel of the images
+    # Saving the face map for future reference  or lebel of the images
 
-    # with open("lable.txt", 'wb') as fileWriteStream:
-    #     pickle.dump(ResultMap, fileWriteStream)
+    with open("lable.txt", 'wb') as fileWriteStream:
+        pickle.dump(ResultMap, fileWriteStream)
  
-    # # The model will give answer as a numeric tag
-    # # This mapping will help to get the corresponding face name for it
-    # print("Mapping of Face and its ID",ResultMap)
+    # The model will give answer as a numeric tag
+    # This mapping will help to get the corresponding face name for it
+    print("Mapping of Face and its ID",ResultMap)
  
-    # # The number of neurons for the output layer is equal to the number of faces
-    # OutputNeurons=len(ResultMap)
-    # print('\n The Number of output neurons: ', OutputNeurons)
+    # The number of neurons for the output layer is equal to the number of faces
+    OutputNeurons=len(ResultMap)
+    print('\n The Number of output neurons: ', OutputNeurons)
     #-------------------------- third step train the model ------------------------------------------
 
  
