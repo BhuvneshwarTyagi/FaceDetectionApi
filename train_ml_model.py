@@ -111,8 +111,8 @@ async def predict():
  
     # Saving the face map for future reference  or lebel of the images
 
-    with open("lable.txt", 'wb') as fileWriteStream:
-        pickle.dump(ResultMap, fileWriteStream)
+    # with open("lable.txt", 'wb') as fileWriteStream:
+    #     pickle.dump(ResultMap, fileWriteStream)
  
     # The model will give answer as a numeric tag
     # This mapping will help to get the corresponding face name for it
@@ -166,7 +166,7 @@ async def predict():
                     validation_steps=10)
 
     
-    classifier.save('newmodel.h5')
+    #classifier.save('newmodel.h5')
     scores = classifier.evaluate_generator(test_set, steps=10)
 
 
