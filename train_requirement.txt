@@ -7,3 +7,4 @@ tensorflow==2.15.0
 tensorflow_intel
 uvicorn
 python-multipart
+spicy
