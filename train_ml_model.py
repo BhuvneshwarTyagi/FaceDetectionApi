@@ -27,48 +27,70 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+def update_github_file(repo_owner, repo_name, file_path, content, commit_message, access_token):
+    url = f"https://api.github.com/repos/{repo_owner}/{repo_name}/contents/{file_path}"
+    
+    headers = {
+        "Authorization": f"Bearer {access_token}",
+        "Accept": "application/vnd.github.v3+json"
+    }
 
+    params = {
+        "message": commit_message,
+        "content": content
+    }
+
+    response = requests.put(url, headers=headers, json=params)
+
+    if response.status_code == 200:
+        return response.json()
+    else:
+        return None
+        
 @app.post("/train model")
 async def predict():
-    # Detect face for traing images
-    # directoryPath="Train"
-    # face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
-    # for folder in os.listdir(directoryPath):
-    #     for image in os.listdir(folder):
-    #         with open(os.path.join(folder, image)) as f:
-    #             image=f.read()
-    #             gray_frame = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-    #             faces = face_cascade.detectMultiScale(gray_frame, scaleFactor=1.3, minNeighbors=5)
-    #             for (x, y, w, h) in faces:
-    #                 # Draw a rectangle around the face
-    #                 cv2.rectangle(image, (x, y), (x+w, y+h), (255, 0, 0), 2)
-    #                 # Save the face region as an image
-    #                 face_roi = image[y:y+h, x:x+w]
-    #                 # New path where we want to save
-    #                 file_path = os.path.join(f'{directoryPath}/{folder}', f'{os.path.join(folder, image)}')
-    #                 print("File path is :",file_path)
-    #                 cv2.imwrite(file_path, face_roi)
-    #                 f.close()
+    Detect face for traing images
+    directoryPath="Train"
+    face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
+    repo_owner = "BhuvneshwarTyagi"
+    repo_name = "FaceDetectionApi"
+    access_token = "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"  
+    for folder in os.listdir(directoryPath):
+        for image in os.listdir(folder):
+            with open(os.path.join(folder, image)) as f:
+                image=f.read()
+                gray_frame = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+                faces = face_cascade.detectMultiScale(gray_frame, scaleFactor=1.3, minNeighbors=5)
+                for (x, y, w, h) in faces:
+                    # Draw a rectangle around the face
+                    cv2.rectangle(image, (x, y), (x+w, y+h), (255, 0, 0), 2)
+                    # Save the face region as an image
+                    face_roi = image[y:y+h, x:x+w]
+                    # New path where we want to save
+                    file_path = os.path.join(f'{directoryPath}/{folder}', f'{os.path.join(folder, image)}')
+                    print("File path is :",file_path)
+                    cv2.imwrite(file_path, face_roi)
+                    f.close()
 
-    # # Detect face for Testing Images
-    # directoryPath="Test"
-    # face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
-    # for folder in os.listdir(directoryPath):
-    #     for image in os.listdir(folder):
-    #         with open(os.path.join(folder, image)) as f:
-    #             image=f.read()
-    #             gray_frame = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-    #             faces = face_cascade.detectMultiScale(gray_frame, scaleFactor=1.3, minNeighbors=5)
-    #             for (x, y, w, h) in faces:
-    #                 # Draw a rectangle around the face
-    #                 cv2.rectangle(image, (x, y), (x+w, y+h), (255, 0, 0), 2)
-    #                 # Save the face region as an image
-    #                 face_roi = image[y:y+h, x:x+w]
-    #                 # New path where we want to save
-    #                 file_path = os.path.join(f'{directoryPath}/{folder}', f'{os.path.join(folder, image)}')
-    #                 print("File path is :",file_path)
-    #                 cv2.imwrite(file_path, face_roi)
-    #                 f.close()
+    # Detect face for Testing Images
+    directoryPath="Test"
+    face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
+    for folder in os.listdir(directoryPath):
+        for image in os.listdir(folder):
+            with open(os.path.join(folder, image)) as f:
+                image=f.read()
+                gray_frame = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+                faces = face_cascade.detectMultiScale(gray_frame, scaleFactor=1.3, minNeighbors=5)
+                for (x, y, w, h) in faces:
+                    # Draw a rectangle around the face
+                    cv2.rectangle(image, (x, y), (x+w, y+h), (255, 0, 0), 2)
+                    # Save the face region as an image
+                    face_roi = image[y:y+h, x:x+w]
+                    # New path where we want to save
+                    file_path = os.path.join(f'{directoryPath}/{folder}', f'{os.path.join(folder, image)}')
+                    print("File path is :",file_path)
+                    cv2.imwrite(file_path, face_roi)
+                    f.close()
 
 
     # # ----------------------- --------- start to train model -------------------------------------------------  
@@ -111,8 +133,8 @@ async def predict():
  
     # Saving the face map for future reference  or lebel of the images
 
-    # with open("lable.txt", 'wb') as fileWriteStream:
-    #     pickle.dump(ResultMap, fileWriteStream)
+    with open("lable.txt", 'wb') as fileWriteStream:
+        pickle.dump(ResultMap, fileWriteStream)
  
     # The model will give answer as a numeric tag
     # This mapping will help to get the corresponding face name for it
@@ -166,7 +188,18 @@ async def predict():
                     validation_steps=10)
 
     
-    #classifier.save('newmodel.h5')
+    classifier.save('newmodel.h5')
+
+    # Update lable.txt on GitHub
+    with open("lable.txt", 'rb') as file:
+        content = file.read()
+        update_github_file(repo_owner, repo_name, "lable.txt", content, "Update lable.txt", access_token)
+
+    # Update newmodel.h5 on GitHub
+    with open("newmodel.h5", 'rb') as file:
+        content = file.read()
+        update_github_file(repo_owner, repo_name, "newmodel.h5", content, "Update newmodel.h5", access_token)
+
     scores = classifier.evaluate_generator(test_set, steps=10)
 
 
