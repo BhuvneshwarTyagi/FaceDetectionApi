@@ -26,7 +26,7 @@ async def predict(file: UploadFile = File('...')):
     image=await file.read()
     gray_frame = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     faces = face_cascade.detectMultiScale(gray_frame, scaleFactor=1.3, minNeighbors=5)
-    contents = await file.read()
+   # contents = await file.read()
         # Draw rectangles around the faces and save the images
     for (x, y, w, h) in faces:
             # Draw a rectangle around the face
@@ -36,7 +36,7 @@ async def predict(file: UploadFile = File('...')):
             #file_path = os.path.join(dataset, f'{count}face1.jpg')
            # print("File path is :",file_path)
         cv2.imwrite(contents, face_roi)
-        
+    contents=await face_roi.read()  
     image = Image.open(io.BytesIO(contents)).convert("RGB")
     image = image.resize((64, 64))  # Resize as needed
     image_array = np.asarray(image)
