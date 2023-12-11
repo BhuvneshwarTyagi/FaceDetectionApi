@@ -6,7 +6,7 @@ import tensorflow as tf
 from PIL import Image
 import numpy as np
 import pickle
-
+import cv2
 app = FastAPI()
 
 # Enable CORS (Cross-Origin Resource Sharing)
