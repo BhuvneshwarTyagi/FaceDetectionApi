@@ -42,8 +42,14 @@ async def predict(file: UploadFile = File('...')):
         #cv2.imwrite(contents, face_roi)
     #contents=await face_roi.read()
     #image = Image.open(io.BytesIO(contents)).convert("RGB")
-    image = image.resize((64, 64))  # Resize as needed
-    image_array = np.asarray(image)
+    pil_image = Image.fromarray(image)
+
+    # Resize the image for model input
+    resized_image = pil_image.resize((64, 64))
+
+    # Convert the resized image back to a NumPy array
+    image_array = np.array(resized_image)
+    #image_array = np.asarray(image)
     image_array = np.expand_dims(image_array, axis=0)  # Add batch dimension
 
     # Perform prediction using your model
