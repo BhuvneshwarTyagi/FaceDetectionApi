@@ -20,9 +20,22 @@ app.add_middleware(
 
 # Load your face recognition model
 model = tf.keras.models.load_model('face_recognition_model.h5')
-
+face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
 @app.post("/predict")
-async def predict(file: UploadFile = File('4face15.jpg')):
+async def predict(file: UploadFile = File('...')):
+    image=await file.read()
+    gray_frame = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    faces = face_cascade.detectMultiScale(gray_frame, scaleFactor=1.3, minNeighbors=5)
+
+        # Draw rectangles around the faces and save the images
+    for (x, y, w, h) in faces:
+            # Draw a rectangle around the face
+        cv2.rectangle(image, (x, y), (x+w, y+h), (255, 0, 0), 2)
+            # Save the face region as an image
+        face_roi = image[y:y+h, x:x+w]
+            #file_path = os.path.join(dataset, f'{count}face1.jpg')
+           # print("File path is :",file_path)
+        cv2.imwrite(file, face_roi)
     contents = await file.read()
     image = Image.open(io.BytesIO(contents)).convert("RGB")
     image = image.resize((64, 64))  # Resize as needed
