@@ -28,6 +28,7 @@ async def predict(file: UploadFile = File('...')):
     # Convert raw bytes to image
     nparr = np.frombuffer(contents, np.uint8)
     image = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
+    gray_frame = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     faces = face_cascade.detectMultiScale(gray_frame, scaleFactor=1.3, minNeighbors=5)
    # contents = await file.read()
         # Draw rectangles around the faces and save the images
