@@ -4,6 +4,7 @@ Pillow==10.1.0
 Pillow==10.1.0
 Requests==2.31.0
 tensorflow==2.15.0
+opencv_python==4.8.1.78
 tensorflow_intel
 uvicorn
 python-multipart
