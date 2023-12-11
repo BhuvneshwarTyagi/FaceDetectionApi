@@ -24,31 +24,10 @@ face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_fronta
 @app.post("/predict")
 async def predict(file: UploadFile = File('...')):
     contents = await file.read()
-    
-    # Convert raw bytes to image
-    nparr = np.frombuffer(contents, np.uint8)
-    image = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
-    gray_frame = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-    faces = face_cascade.detectMultiScale(gray_frame, scaleFactor=1.3, minNeighbors=5)
-   # contents = await file.read()
-        # Draw rectangles around the faces and save the images
-    for (x, y, w, h) in faces:
-            # Draw a rectangle around the face
-        cv2.rectangle(image, (x, y), (x+w, y+h), (255, 0, 0), 2)
-            # Save the face region as an image
-        #face_roi = image[y:y+h, x:x+w]
-            #file_path = os.path.join(dataset, f'{count}face1.jpg')
-           # print("File path is :",file_path)
-        #cv2.imwrite(contents, face_roi)
-    #contents=await face_roi.read()
-    #image = Image.open(io.BytesIO(contents)).convert("RGB")
-    pil_image = Image.fromarray(image)
-
     # Resize the image for model input
-    resized_image = pil_image.resize((64, 64))
-
-    # Convert the resized image back to a NumPy array
-    image_array = np.array(resized_image)
+    image = Image.open(io.BytesIO(contents)).convert("RGB")
+    image = image.resize((64, 64))  # Resize as needed
+    image_array = np.asarray(image)
     #image_array = np.asarray(image)
     image_array = np.expand_dims(image_array, axis=0)  # Add batch dimension
 
