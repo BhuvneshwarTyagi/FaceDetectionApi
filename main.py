@@ -35,7 +35,7 @@ async def predict(file: UploadFile = File('...')):
         face_roi = image[y:y+h, x:x+w]
             #file_path = os.path.join(dataset, f'{count}face1.jpg')
            # print("File path is :",file_path)
-        cv2.imwrite(contents, face_roi)
+        #cv2.imwrite(contents, face_roi)
     contents=await face_roi.read()
     image = Image.open(io.BytesIO(contents)).convert("RGB")
     image = image.resize((64, 64))  # Resize as needed
