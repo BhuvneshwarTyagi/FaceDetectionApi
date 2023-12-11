@@ -36,7 +36,7 @@ async def predict(file: UploadFile = File('...')):
             # Draw a rectangle around the face
         cv2.rectangle(image, (x, y), (x+w, y+h), (255, 0, 0), 2)
             # Save the face region as an image
-        face_roi = image[y:y+h, x:x+w]
+        #face_roi = image[y:y+h, x:x+w]
             #file_path = os.path.join(dataset, f'{count}face1.jpg')
            # print("File path is :",file_path)
         #cv2.imwrite(contents, face_roi)
