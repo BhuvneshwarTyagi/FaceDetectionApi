@@ -9,6 +9,8 @@ face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_fronta
 @app.post("/detect_faces")
 async def detect_faces(file: UploadFile = File(...)):
     image=await file.read()
+    nparr = np.frombu(contents, np.uint8)
+    image = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
     gray_frame = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     faces = face_cascade.detectMultiScale(gray_frame, scaleFactor=1.3, minNeighbors=5)
     for (x, y, w, h) in faces:
