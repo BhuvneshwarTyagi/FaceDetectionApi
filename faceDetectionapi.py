@@ -20,4 +20,4 @@ async def detect_faces(file: UploadFile = File(...)):
         face_roi = image[y:y+h, x:x+w]
     img_bytes = face_roi.tobytes()
     # Return the processed image
-    return StreamingResponse(io.BytesIO(img_bytes), media_type="image/png")
+    return StreamingResponse(io.BytesIO(img_bytes), media_type="image/jpeg")
