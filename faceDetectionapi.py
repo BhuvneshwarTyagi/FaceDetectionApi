@@ -18,7 +18,8 @@ async def detect_faces(file: UploadFile = File(...)):
         cv2.rectangle(image, (x, y), (x+w, y+h), (255, 0, 0), 2)
             # Save the face region as an image
         face_roi = image[y:y+h, x:x+w]
-    _, img_encoded = cv2.imencode('.jpg', face_roi)
+        face_roi_resized = cv2.resize(face_roi, (64, 64))
+    _, img_encoded = cv2.imencode('.jpg', face_roi_resized)
     img_bytes = img_encoded.tobytes()
 
     # Return the processed image
