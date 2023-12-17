@@ -32,7 +32,7 @@ async def predict(file: UploadFile = File('...')):
     image_array = np.expand_dims(image_array, axis=0)  # Add batch dimension
 
     # Perform prediction using your model
-    predictions = model.predict(image_array)
+    predictions = model.predict(image_array,verbose=0)
     map = pickle.load(open("model.txt",'rb'))
     # You may need to post-process the predictions based on your model
     # For example, convert the predictions to class labels or confidence scores
